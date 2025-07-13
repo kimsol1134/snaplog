@@ -30,7 +30,7 @@ from snaplog_natural import (
 
 PAGE_CONFIG = {
     "page_title": "SnapLog",
-    "page_icon": "📸",
+    "page_icon": "icon.png",  # 커스텀 아이콘 사용
     "layout": "centered",
     "initial_sidebar_state": "expanded"
 }
@@ -75,6 +75,41 @@ def init_diary_storage() -> Path:
 def get_image_base64(uploaded_file) -> str:
     """업로드된 파일을 base64로 변환"""
     return base64.b64encode(uploaded_file.getvalue()).decode()
+
+def get_local_image_base64(image_path: str) -> str:
+    """로컬 이미지 파일을 base64로 변환"""
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        return None
+
+def load_custom_favicon():
+    """커스텀 파비콘 로드 및 HTML에 추가"""
+    icon_base64 = get_local_image_base64("icon.png")
+    if icon_base64:
+        favicon_html = f"""
+        <link rel="icon" type="image/png" href="data:image/png;base64,{icon_base64}">
+        <link rel="shortcut icon" type="image/png" href="data:image/png;base64,{icon_base64}">
+        """
+        st.markdown(favicon_html, unsafe_allow_html=True)
+
+def load_open_graph_meta():
+    """Open Graph 메타 태그 추가"""
+    og_image_base64 = get_local_image_base64("open_graph.png")
+    if og_image_base64:
+        og_meta_html = f"""
+        <meta property="og:title" content="SnapLog - 자연스러운 일상 기록">
+        <meta property="og:description" content="사진을 업로드하면 AI가 자연스러운 일기를 생성해주는 웹앱">
+        <meta property="og:image" content="data:image/png;base64,{og_image_base64}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://snaplog.streamlit.app">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="SnapLog - 자연스러운 일상 기록">
+        <meta name="twitter:description" content="사진을 업로드하면 AI가 자연스러운 일기를 생성해주는 웹앱">
+        <meta name="twitter:image" content="data:image/png;base64,{og_image_base64}">
+        """
+        st.markdown(og_meta_html, unsafe_allow_html=True)
 
 # ================================================================================
 # 일기 관리 함수들
@@ -191,6 +226,8 @@ def setup_page():
     """페이지 초기 설정"""
     st.set_page_config(**PAGE_CONFIG)
     load_minimal_css()
+    load_custom_favicon()
+    load_open_graph_meta()
 
 def render_header():
     """헤더 렌더링"""
