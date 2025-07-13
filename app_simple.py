@@ -29,9 +29,9 @@ from snaplog_natural import (
 # ================================================================================
 
 PAGE_CONFIG = {
-    "page_title": "SnapLog - 자연스러운 일상 기록",
-    "page_icon": "🌅",
-    "layout": "wide",
+    "page_title": "SnapLog",
+    "page_icon": "📸",
+    "layout": "centered",
     "initial_sidebar_state": "expanded"
 }
 
@@ -167,7 +167,7 @@ def display_detailed_instructions():
     with st.expander("📖 자세한 사용법"):
         st.markdown("""
         ### 📸 사진 업로드
-        - JPEG, PNG 형식 지원
+        - JPG,JPEG, PNG 형식 지원
         - 최대 10장까지 업로드 가능
         - 사진에 시간/위치 정보가 있으면 더 정확한 일기 생성
         
@@ -194,8 +194,8 @@ def setup_page():
 
 def render_header():
     """헤더 렌더링"""
-    st.title("🌅 SnapLog - 자연스러운 일상 기록")
-    st.markdown('*"사진 속 순간들을 아름다운 일기로 만들어보세요"* ✨')
+    st.title("SnapLog")
+    st.markdown('*"사진 속 순간들을 아름다운 일기로 만들어보세요"* 📸')
     st.markdown("---")
 
 def render_sidebar():
@@ -203,8 +203,6 @@ def render_sidebar():
     with st.sidebar:
         # API 키 상태 확인
         display_api_status()
-        st.markdown("---")
-        
         # 파일 업로드
         st.subheader("📷 사진 업로드")
         uploaded_files = st.file_uploader(
@@ -322,7 +320,7 @@ def handle_diary_generation(uploaded_files, selected_style_desc, selected_style,
             st.session_state.generated_diary = None
             st.session_state.diary_metadata = None
         
-        with st.spinner("🤖 AI가 일기를 생성하고 있습니다..."):
+        with st.spinner("📝 일기를 생성하고 있습니다..."):
             try:
                 # 진행 상태 표시
                 progress_bar = st.progress(0)
@@ -421,8 +419,7 @@ def display_generated_diary():
                 )
                 st.success("💾 일기가 성공적으로 저장되었습니다!")
                 st.info(f"📁 저장 위치: {saved_path}")
-                st.balloons()
-                
+
                 # 저장 후 세션 상태 초기화
                 time.sleep(2)  # 사용자가 성공 메시지를 볼 수 있도록
                 del st.session_state.generated_diary
