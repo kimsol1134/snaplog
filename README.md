@@ -79,27 +79,11 @@ snaplog_web/
 - **간결한**: 핵심만 담은 명확한 기록
 - **상세한**: 구체적이고 자세한 서술
 
-## 🌐 배포
-
-### Streamlit Community Cloud (추천)
-
-1. GitHub에 저장소 업로드
-2. [Streamlit Community Cloud](https://streamlit.io/cloud) 가입
-3. "New app" → GitHub 저장소 선택
-4. Environment variables에 `GOOGLE_API_KEY` 추가
-5. Deploy 클릭
-
-### 기타 배포 옵션
-
-- **Railway**: Git 연동 자동 배포
-- **Heroku**: 컨테이너 기반 배포 
-- **Google Cloud Run**: 서버리스 배포
-
 ## 🛠️ 기술 스택
 
 - **Frontend**: Streamlit
 - **AI Model**: Google Gemini 2.5 Pro
-- **Language**: Python 3.8+
+- **Language**: Python 3.9.11
 - **Storage**: Local JSON files
 - **Image Processing**: PIL (Pillow)
 
@@ -152,8 +136,8 @@ MIT License - 자세한 내용은 [LICENSE](LICENSE) 파일 참조
 ## 📞 지원
 
 - **Issues**: GitHub Issues를 통해 버그 리포트 및 기능 요청
-- **Email**: your-email@example.com
+- **Email**: kimsol1134@naver.com
 
 ---
 
-*Made with ❤️ by [Your Name]*
+*Made with ❤️ by kimsol1134*
