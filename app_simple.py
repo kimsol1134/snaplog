@@ -86,30 +86,38 @@ def get_local_image_base64(image_path: str) -> str:
 
 def load_custom_favicon():
     """커스텀 파비콘 로드 및 HTML에 추가"""
-    icon_base64 = get_local_image_base64("icon.png")
-    if icon_base64:
-        favicon_html = f"""
-        <link rel="icon" type="image/png" href="data:image/png;base64,{icon_base64}">
-        <link rel="shortcut icon" type="image/png" href="data:image/png;base64,{icon_base64}">
-        """
-        st.markdown(favicon_html, unsafe_allow_html=True)
+    # Streamlit 정적 파일 서빙을 통한 아이콘 URL 생성
+    base_url = "https://snaplog-sol.streamlit.app"
+    icon_url = f"{base_url}/app/static/icon.png"
+    
+    favicon_html = f"""
+    <link rel="icon" type="image/png" href="{icon_url}">
+    <link rel="shortcut icon" type="image/png" href="{icon_url}">
+    """
+    st.markdown(favicon_html, unsafe_allow_html=True)
 
 def load_open_graph_meta():
     """Open Graph 메타 태그 추가"""
-    og_image_base64 = get_local_image_base64("open_graph.png")
-    if og_image_base64:
-        og_meta_html = f"""
-        <meta property="og:title" content="SnapLog - 자연스러운 일상 기록">
-        <meta property="og:description" content="사진을 업로드하면 AI가 자연스러운 일기를 생성해주는 웹앱">
-        <meta property="og:image" content="data:image/png;base64,{og_image_base64}">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://snaplog.streamlit.app">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="SnapLog - 자연스러운 일상 기록">
-        <meta name="twitter:description" content="사진을 업로드하면 AI가 자연스러운 일기를 생성해주는 웹앱">
-        <meta name="twitter:image" content="data:image/png;base64,{og_image_base64}">
-        """
-        st.markdown(og_meta_html, unsafe_allow_html=True)
+    # Streamlit 정적 파일 서빙을 통한 이미지 URL 생성
+    base_url = "https://snaplog-sol.streamlit.app"
+    og_image_url = f"{base_url}/app/static/open_graph.png"
+    
+    og_meta_html = f"""
+    <meta property="og:title" content="SnapLog - 자연스러운 일상 기록">
+    <meta property="og:description" content="사진을 업로드하면 AI가 자연스러운 일기를 생성해주는 웹앱">
+    <meta property="og:image" content="{og_image_url}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{base_url}">
+    <meta property="og:site_name" content="SnapLog">
+    <meta property="og:locale" content="ko_KR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SnapLog - 자연스러운 일상 기록">
+    <meta name="twitter:description" content="사진을 업로드하면 AI가 자연스러운 일기를 생성해주는 웹앱">
+    <meta name="twitter:image" content="{og_image_url}">
+    """
+    st.markdown(og_meta_html, unsafe_allow_html=True)
 
 # ================================================================================
 # 일기 관리 함수들
